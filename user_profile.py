@@ -64,4 +64,16 @@ def reset_for_new_user(new_name, new_nickname=None):
     """
     Jab AECHO transfer ho jaye kisi doosre user ko, iska profile reset
     hoke naye user ka naam/nickname set karta hai. Purana password hash
-    clear ho jata hai — naya owner chahe to naya set
+    clear ho jata hai — naya owner chahe to naya set kar sakta hai.
+    """
+    profile = DEFAULT_PROFILE.copy()
+    profile["name"] = new_name
+    profile["nickname"] = new_nickname
+    profile["is_owner_set"] = True
+    save_profile(profile)
+    return profile
+
+
+def get_profile():
+    """Poora current profile return karta hai (read-only use ke liye)."""
+    return load_profile()
